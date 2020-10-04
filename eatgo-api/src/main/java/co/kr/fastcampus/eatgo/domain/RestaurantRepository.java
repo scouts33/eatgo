@@ -1,25 +1,14 @@
 package co.kr.fastcampus.eatgo.domain;
 
-import java.util.ArrayList;
+import org.springframework.data.repository.CrudRepository;
+
 import java.util.List;
+import java.util.Optional;
 
-public class RestaurantRepository {
+public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
+    List<Restaurant> findAll();
 
-    private List<Restaurant> restaurants = new ArrayList<>();
+    Optional<Restaurant> findById(Long id);
 
-    public RestaurantRepository() {
-        restaurants.add(new Restaurant(1004L, "Bob zip", "Seoul"));
-        restaurants.add(new Restaurant(2020L, "Cyber Food", "Seoul"));
-    }
-
-    public List<Restaurant> findAll() {
-        return restaurants;
-    }
-
-    public Restaurant findById(Long id) {
-        return restaurants.stream()
-                .filter(r -> r.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
+    Restaurant save(Restaurant restaurant);
 }
